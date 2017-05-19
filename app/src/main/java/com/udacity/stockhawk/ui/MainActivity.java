@@ -1,6 +1,8 @@
 package com.udacity.stockhawk.ui;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -46,7 +48,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onClick(String symbol) {
+
+
+
         Timber.d("Symbol clicked: %s", symbol);
+
+
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(getString(R.string.intent_extra_symbol), symbol);
+        startActivity(intent);
     }
 
     @Override
@@ -121,13 +131,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             if (networkUp()) {
                 swipeRefreshLayout.setRefreshing(true);
+                PrefUtils.addStock(this, symbol);
+                QuoteSyncJob.syncImmediately(this);
             } else {
                 String message = getString(R.string.toast_stock_added_no_connectivity, symbol);
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
 
-            PrefUtils.addStock(this, symbol);
-            QuoteSyncJob.syncImmediately(this);
+
         }
     }
 

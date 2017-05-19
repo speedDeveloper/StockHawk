@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="146dip"
+    android:minHeight="146dip"
+    android:autoAdvanceViewId="@+id/lv_stocks"
+    android:previewImage="@drawable/ic_monetization_on_black_24dp"
+    android:initialLayout="@layout/widget_provider_layout"
+    android:updatePeriodMillis="10"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen">
+</appwidget-provider>
