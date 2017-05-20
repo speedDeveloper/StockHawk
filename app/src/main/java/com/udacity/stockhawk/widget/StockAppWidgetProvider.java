@@ -1,5 +1,5 @@
 package com.udacity.stockhawk.widget;
-
+// comment for committing the cleanup
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
