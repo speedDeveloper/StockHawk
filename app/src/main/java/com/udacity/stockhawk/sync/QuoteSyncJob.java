@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.mock.MockUtils;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -116,33 +117,40 @@ public final class QuoteSyncJob {
                 // The request will hang forever X_x
 
 
+// My own bug fix, replaced by bug fix from Udacity
+//                List<HistoricalQuote> history = new ArrayList<>(); //stock.getHistory(from, to, Interval.WEEKLY);
+//
+//                // Adding Fake Data
+//                // TODO load data from web
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DATE, 0);
+//                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(24), new BigDecimal(20), 5000l));
+//                calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DATE, 1);
+//                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(22), new BigDecimal(20), 5000l));
+//                calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DATE, 2);
+//                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(20), new BigDecimal(20), 5000l));
+//                calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DATE, 3);
+//                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(27), new BigDecimal(20), 5000l));
+//                calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DATE, 4);
+//                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(19), new BigDecimal(20), 5000l));
+//                calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DATE, 5);
+//                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(14), new BigDecimal(20), 5000l));
+//                calendar = Calendar.getInstance();
+//                calendar.set(Calendar.DATE, 6);
+//                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(price), new BigDecimal(20), 5000l)); // actual price
+//                // we use the correct price here so that the Graph and TextView use the same price
 
-                List<HistoricalQuote> history = new ArrayList<>(); //stock.getHistory(from, to, Interval.WEEKLY);
+                // Note for reviewer
+                // Due to the problems with Yahoo API we have commented the line above
+                // and included this one to fetch the history from MockUtils
+                // This should be enough as to develop and review while the API is down
+                List<HistoricalQuote> history = MockUtils.getHistory();
 
-                // Adding Fake Data
-                // TODO load data from web
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.DATE, 0);
-                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(24), new BigDecimal(20), 5000l));
-                calendar = Calendar.getInstance();
-                calendar.set(Calendar.DATE, 1);
-                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(22), new BigDecimal(20), 5000l));
-                calendar = Calendar.getInstance();
-                calendar.set(Calendar.DATE, 2);
-                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(20), new BigDecimal(20), 5000l));
-                calendar = Calendar.getInstance();
-                calendar.set(Calendar.DATE, 3);
-                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(27), new BigDecimal(20), 5000l));
-                calendar = Calendar.getInstance();
-                calendar.set(Calendar.DATE, 4);
-                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(19), new BigDecimal(20), 5000l));
-                calendar = Calendar.getInstance();
-                calendar.set(Calendar.DATE, 5);
-                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(14), new BigDecimal(20), 5000l));
-                calendar = Calendar.getInstance();
-                calendar.set(Calendar.DATE, 6);
-                history.add(new HistoricalQuote(symbol, calendar, new BigDecimal(20), new BigDecimal(10), new BigDecimal(25), new BigDecimal(price), new BigDecimal(20), 5000l)); // actual price
-                // we use the correct price here so that the Graph and TextView use the same price
 
                 StringBuilder historyBuilder = new StringBuilder();
 
