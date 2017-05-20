@@ -31,7 +31,7 @@ public class StockAppWidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
         AppWidgetManager mgr = AppWidgetManager.getInstance(context);
         String strAction = intent.getAction();
-        Log.d(TAG, "receiving event");
+
         if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(strAction)) {
 
 
@@ -46,7 +46,7 @@ public class StockAppWidgetProvider extends AppWidgetProvider {
                     StockAppWidgetProvider.class));
             appWidgetManager.notifyAppWidgetViewDataChanged(ids,
                     R.id.lv_stocks);
-            Log.d(TAG, "receiving event2");
+
         }
     }
 

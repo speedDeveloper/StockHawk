@@ -52,12 +52,12 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         // In onCreate() you setup any connections / cursors to your data source. Heavy lifting,
         // for example downloading or creating content etc, should be deferred to onDataSetChanged()
         // or getViewAt(). Taking more than 20 seconds in this call will result in an ANR.
-        Log.d(TAG, "test2");
+
         mCursor = mContext.getContentResolver().query(Contract.Quote.URI, null, null, null, Contract.Quote.COLUMN_PRICE + " ASC");
-        Log.d(TAG, "test2");
+
         mWidgetItems.clear();
         while(mCursor.moveToNext()){
-            Log.d(TAG, "test");
+
             mWidgetItems.add(new WidgetItem(mCursor.getString(Contract.Quote.POSITION_SYMBOL), mCursor.getInt(Contract.Quote.POSITION_PRICE), mCursor.getString(Contract.Quote.POSITION_PERCENTAGE_CHANGE)));
         }
 
@@ -147,7 +147,7 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     public void onDataSetChanged() {
-        Log.d(TAG, "data set changed event");
+
         onCreate();
         // This is triggered when you call AppWidgetManager notifyAppWidgetViewDataChanged
         // on the collection view corresponding to this factory. You can do heaving lifting in

@@ -36,7 +36,9 @@
 
     <string name="cdesc_add_stock">Add a stock</string>
     <string name="cdesc_stock_graph">The stock graph</string>
-
+    <string name="cdesc_change">The change</string>
+    <string name="cdesc_price">%s stock price</string>
+    <string name="cdesc_symbol">%s as symbol</string>
     <string name="tv_current_price">Current Price</string>
     <string name="tv_symbol">Symbol</string>
     <string name="label_stock_price">Stock Price</string>
