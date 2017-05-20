@@ -26,4 +26,7 @@ public class Utils {
             return "+" + change + "%";
         return change + "%";
     }
+    public static boolean isInAlphabet(String name) {
+        return name.matches("[a-zA-Z]+");
+    }
 }

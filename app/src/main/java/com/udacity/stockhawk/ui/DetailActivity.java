@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -20,17 +21,21 @@ import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.Utils;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import yahoofinance.Stock;
 
 public class DetailActivity extends AppCompatActivity {
 
-    TextView mErrorTextView;
-    TextView mPriceTextView;
-    TextView mSymbolTextView;
-    LineChart mLineChart;
+    private static final String TAG = DetailActivity.class.getSimpleName();
+    private TextView mErrorTextView;
+    private TextView mPriceTextView;
+    private TextView mSymbolTextView;
+    private LineChart mLineChart;
 
 
     @Override
@@ -85,13 +90,18 @@ public class DetailActivity extends AppCompatActivity {
         mPriceTextView.setText(Utils.formatPrice(price));
 
         List<Entry> entries = new ArrayList<Entry>();
+        Log.d(TAG, history);
         String[] histories = history.split("\\r?\\n");
 
+        Calendar calendar = Calendar.getInstance();
+        BigDecimal time = new BigDecimal(calendar.getTimeInMillis() + "");
         for (String historyString : histories) {
             String[] historyValues = historyString.split(", ");
 
+            BigDecimal decimal = time.subtract(new BigDecimal(historyValues[0]));
+            Log.d(TAG, decimal.floatValue() + "");
             // turn your data into Entry objects
-            entries.add(new Entry(Float.parseFloat(historyValues[0]), Float.parseFloat(historyValues[1])));
+            entries.add(new Entry(decimal.floatValue(), Float.parseFloat(historyValues[1])));
         }
 
         LineDataSet dataSet = new LineDataSet(entries, getString(R.string.label_stock_price)); // add entries to dataset

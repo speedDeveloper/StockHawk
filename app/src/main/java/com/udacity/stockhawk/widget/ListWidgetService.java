@@ -17,6 +17,8 @@ import com.udacity.stockhawk.ui.DetailActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by phili on 5/19/2017.
  */
@@ -53,6 +55,7 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         Log.d(TAG, "test2");
         mCursor = mContext.getContentResolver().query(Contract.Quote.URI, null, null, null, Contract.Quote.COLUMN_PRICE + " ASC");
         Log.d(TAG, "test2");
+        mWidgetItems.clear();
         while(mCursor.moveToNext()){
             Log.d(TAG, "test");
             mWidgetItems.add(new WidgetItem(mCursor.getString(Contract.Quote.POSITION_SYMBOL), mCursor.getInt(Contract.Quote.POSITION_PRICE), mCursor.getString(Contract.Quote.POSITION_PERCENTAGE_CHANGE)));
@@ -144,6 +147,8 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     }
 
     public void onDataSetChanged() {
+        Log.d(TAG, "data set changed event");
+        onCreate();
         // This is triggered when you call AppWidgetManager notifyAppWidgetViewDataChanged
         // on the collection view corresponding to this factory. You can do heaving lifting in
         // here, synchronously. For example, if you need to process an image, fetch something

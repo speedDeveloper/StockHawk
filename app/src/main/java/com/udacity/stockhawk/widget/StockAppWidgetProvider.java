@@ -7,12 +7,15 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.ui.DetailActivity;
 import com.udacity.stockhawk.ui.MainActivity;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by phili on 5/19/2017.
@@ -25,15 +28,26 @@ public class StockAppWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        super.onReceive(context, intent);
         AppWidgetManager mgr = AppWidgetManager.getInstance(context);
         String strAction = intent.getAction();
+        Log.d(TAG, "receiving event");
         if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(strAction)) {
-            ComponentName name = new ComponentName(context, StockAppWidgetProvider.class);
-            int [] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(name);
-            onUpdate(context, mgr, ids);
+
+
+            int appWidgetId = intent.getIntExtra(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID,
+                    AppWidgetManager.INVALID_APPWIDGET_ID);
+            AppWidgetManager appWidgetManager = AppWidgetManager
+                    .getInstance(context);
+
+
+            int[] ids = appWidgetManager.getAppWidgetIds(new ComponentName(context,
+                    StockAppWidgetProvider.class));
+            appWidgetManager.notifyAppWidgetViewDataChanged(ids,
+                    R.id.lv_stocks);
+            Log.d(TAG, "receiving event2");
         }
-        super.onReceive(context, intent);
     }
 
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,

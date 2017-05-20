@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.data.Utils;
 import com.udacity.stockhawk.mock.MockUtils;
 
 import java.io.IOException;
@@ -84,7 +85,17 @@ public final class QuoteSyncJob {
             while (iterator.hasNext()) {
                 final String symbol = iterator.next();
 
-
+                if(!Utils.isInAlphabet(symbol)) {
+                    PrefUtils.removeStock(context, symbol);
+                    Handler mHandler = new Handler(Looper.getMainLooper());
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context.getApplicationContext(), context.getString(R.string.error_stock_invalid, symbol), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    break;
+                }
                 Stock stock = quotes.get(symbol);
                 StockQuote quote = stock.getQuote();
                 if(!stock.isValid()) {
